@@ -1,0 +1,32 @@
+body {
+    font-family: 'Arial', sans-serif;  /* Modern sans-serif font */
+    background-color: #282c34;          /* Dark background */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #ffffff;                      /* White text color */
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1); /* Slightly transparent white background */
+    padding: 40px;                       /* Increased padding */
+    border-radius: 15px;                 /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5); /* Soft shadow effect */
+    backdrop-filter: blur(10px);         /* Blur effect for background */
+}
+
+h1 {
+    color: #61dafb;                      /* Light blue color for the heading */
+    font-size: 3.5em;                   /* Larger font size */
+    font-weight: bold;                   /* Bold font weight */
+}
+
+p {
+    color: #ffffff;                      /* White text for paragraph */
+    font-size: 1.5em;                   /* Increase font size */
+    margin-top: 10px;                   /* Space above the paragraph */
+}
