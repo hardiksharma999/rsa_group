@@ -21,10 +21,10 @@ jobs:
         run: npm install
 
       - name: List files
-        run: ls -R  # This will list all files and directories
+        run: ls -R
 
       - name: Run Tests
-        run: node test.js  # Update the path if necessary
+        run: node test.js
 
       - name: SonarQube Scan
         env:
@@ -47,22 +47,18 @@ jobs:
       - name: Determine version tag
         id: version
         run: |
-          # Fetch the latest tag
           LATEST_TAG=$(git tag --sort=-creatordate | head -n 1)
           echo "Latest tag: $LATEST_TAG"
-      
-          # Increment the version (patch version increment)
+
           if [ -z "$LATEST_TAG" ]; then
             BUMP_TAG="0.0.1"
           else          
             BUMP_TAG=$(echo $LATEST_TAG | awk -F. '{$NF = $NF + 1;} 1' | sed 's/ /./g')
           fi
-      
-          NEW_TAG="$BUMP_TAG"
-          echo "New version tag: $NEW_TAG"
-      
-          # Set the output for the new tag
-          echo "BUMP_TAG=$NEW_TAG" >> $GITHUB_ENV
+
+          echo "New version tag: $BUMP_TAG"
+          echo $BUMP_TAG > bump_tag.txt
+          echo "BUMP_TAG=$BUMP_TAG" >> $GITHUB_ENV
 
       - name: Upload BUMP_TAG as an artifact
         uses: actions/upload-artifact@v3
@@ -80,3 +76,5 @@ jobs:
         run: |
           docker build -t hardiksharma15jan/rsa_group:${{ env.BUMP_TAG }} .
           docker push hardiksharma15jan/rsa_group:${{ env.BUMP_TAG }}
+          docker tag hardiksharma15jan/rsa_group:${{ env.BUMP_TAG }} hardiksharma15jan/rsa_group:latest
+          docker push hardiksharma15jan/rsa_group:latest
